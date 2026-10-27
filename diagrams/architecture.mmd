@@ -1,0 +1,21 @@
+flowchart TD
+    subgraph VNet["🌐 Workload Virtual Network"]
+        APP[Application Compute / AKS]
+        PE[Private Endpoint NIC
+10.2.1.4]
+    end
+
+    subgraph CentralDNS["📡 Central Private DNS Resolution"]
+        DNS[privatelink.blob.core.windows.net
+A Record: 10.2.1.4]
+    end
+
+    subgraph AzurePaaS["🔒 Zero-Trust PaaS Perimeter"]
+        STORAGE[Azure Storage Account
+public_network_access_enabled = false]
+    end
+
+    APP -->|1. Resolves storage.blob.core.windows.net| DNS
+    DNS -->|2. Returns 10.2.1.4| APP
+    APP -->|3. Connects via Private IP| PE
+    PE -->|4. Microsoft Backbone Private Link| STORAGE

@@ -1,0 +1,7 @@
+flowchart LR
+    A[💻 Git Commit] --> B[⚙️ GitHub Actions CI]
+    B --> C[🧪 TFLint & Validate]
+    C --> D[🛡️ Checkov SAST Security]
+    D --> E[🔒 Peer Review Approval]
+    E --> F[🚀 Terraform Apply via OIDC]
+    F --> G[📦 Private Endpoints & DNS Zones]
